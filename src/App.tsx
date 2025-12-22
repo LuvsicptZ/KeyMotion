@@ -1,7 +1,14 @@
-
 import './App.css'
 
 import { Toaster } from "react-hot-toast";
+
+const WordsContainer = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="relative text-3xl max-w-xl leading-relaxed break-all mt-3 align-justify">
+      {children}
+    </div>
+  )
+}
 
 const App = () => {
   return (
@@ -10,11 +17,12 @@ const App = () => {
 
       <Toaster />
 
-      <div className="relative text-3xl max-w-xl leading-relaxed break-all mt-3 align-justify">
-         <div className="text-slate-500">
-            Generating random words... 
-         </div>
-      </div>
+      <WordsContainer>
+        <div className="text-slate-500">
+          Generating random words... 
+        </div>
+      </WordsContainer>
+
 
       <button className="mx-auto mt-10 text-slate-500">
         Restart
