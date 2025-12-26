@@ -1,5 +1,5 @@
 import './App.css'
-
+import RestartButton from "./components/RestartButton"
 import { Toaster } from "react-hot-toast";
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
@@ -23,10 +23,10 @@ const App = () => {
         </div>
       </WordsContainer>
 
-
-      <button className="mx-auto mt-10 text-slate-500">
-        Restart
-      </button>
+      <RestartButton
+        className="mx-auto mt-10 text-slat-500"
+        onRestart={() => restart()}
+      />
 
       <div className="mt-10">Results</div>
     </div>
