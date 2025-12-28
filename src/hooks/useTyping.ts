@@ -46,9 +46,11 @@ const isKeyboardCodeAllowed = (code: string) => {
 
         switch (key) {
             case 'Backspace':
-                setTyped(prev => prev.slice(0, -1));
-                setCursor(prev => prev - 1);
-                totalTyped.current--;
+                if (cursor > 0 && typed.length > 0) {
+                    setTyped(prev => prev.slice(0, -1));
+                    setCursor(prev => prev - 1);
+                    totalTyped.current--;
+                }
                 break;
             default:
                 setTyped(prev => prev + key);
