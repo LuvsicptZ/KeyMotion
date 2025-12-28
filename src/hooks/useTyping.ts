@@ -63,7 +63,9 @@ const isKeyboardCodeAllowed = (code: string) => {
         totalTyped.current = 0
     }, []);
 
-
+    const resetTotalTyped = useCallback(() => {
+        totalTyped.current = 0
+    }, []);
 
     useEffect(() => {
         document.addEventListener('keydown', keydownHandler);
@@ -76,6 +78,7 @@ const isKeyboardCodeAllowed = (code: string) => {
         typed,
         cursor,
         totalTyped,
+        resetTotalTyped,
         clearTyped,
     }
 }
