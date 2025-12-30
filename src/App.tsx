@@ -5,6 +5,8 @@ import TimeSelecter from "./components/TimeSelecter"
 import GenerateWords from "./components/GenerateWords"
 import { useState } from "react"
 import UserTypings from "./components/UserTypings";
+import { calculateAccuracyPercentage } from "./utils/helpers"
+import Results from "./components/Results"
 
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
@@ -27,6 +29,8 @@ const App = () => {
     setCountdownSeconds 
   } = useEngine()
 
+  const [selectedTime, setSelectedTime] = useState(0)
+
   return (
     <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 mt-20">  
 
@@ -41,6 +45,15 @@ const App = () => {
       <RestartButton
         className="mx-auto mt-10 text-slate-500"
         onRestart={() => restart()}
+      />
+
+      <Results
+        state={state}
+        className="mt-10"
+        errors={errors}
+        totalTime={selectedTime}
+        accuracyPercentage={calculateAccuracyPercentage(totalTyped.current, errors)}
+        total={totalTyped.current}
       />
 
       <div className="mt-10 flex gap-4 justify-center text-slate-500">
