@@ -4,6 +4,7 @@ import useEngine from "./hooks/useEngine"
 import TimeSelecter from "./components/TimeSelecter"
 import GenerateWords from "./components/GenerateWords"
 import { useState } from "react"
+import UserTypings from "./components/UserTypings";
 
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
@@ -34,6 +35,7 @@ const App = () => {
 
       <WordsContainer>
         <GenerateWords words={words} />
+        <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
       </WordsContainer>
 
       <RestartButton
