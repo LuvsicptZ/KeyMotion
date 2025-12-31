@@ -57,7 +57,7 @@ const isKeyboardCodeAllowed = (code: string) => {
                 setCursor(prev => prev + 1);
                 totalTyped.current++
         }
-    }, [isFinish, countdownSeconds]);
+    }, [isFinish, countdownSeconds, cursor, typed]);
         
     const clearTyped = useCallback(() => {
         setTyped("")
