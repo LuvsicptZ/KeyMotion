@@ -1,3 +1,7 @@
+import Caret from "./Caret"
+
+
+
 const Character = ({ actual, expected }: { actual: string; expected: string }) => {
     const isCorrect = actual === expected
     const isWhiteSpace = expected === " "
@@ -25,15 +29,18 @@ const UserTypings = ({
     words: string
     className?: string
 }) => {
+    const typedCharacters = userTypings.split("")
+    
     return (
         <div className={className}>
-            {words.split("").map((char, index) => (
+            {typedCharacters.map((char, index) => (
                 <Character
-                    key={index}
-                    actual={userTypings[index] || ""}
-                    expected={char}
+                    key={`${char}_${index}`}
+                    actual={char}
+                    expected={words[index]}
                 />
             ))}
+            <Caret />
         </div>
     )
 }
