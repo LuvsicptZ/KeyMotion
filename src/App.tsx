@@ -56,11 +56,6 @@ const App = () => {
         total={totalTyped.current}
       />
 
-      <div className="mt-10 flex gap-4 justify-center text-slate-500">
-        <div>Time: <span className="text-primary-400">{timeLeft}s</span></div>
-        <div>Errors: <span className="text-red-500">{errors}</span></div>
-        <div>Typed: <span className="text-green-500">{totalTyped.current}</span></div>
-      </div>
     </div>
   );
 };
