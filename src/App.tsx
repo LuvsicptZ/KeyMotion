@@ -57,7 +57,7 @@ const App = () => {
         className="mt-10"
         errors={errors}
         totalTime={selectedTime}
-        accuracyPercentage={calculateAccuracyPercentage(totalTyped.current, errors)}
+        accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
         total={totalTyped.current}
       />
 
