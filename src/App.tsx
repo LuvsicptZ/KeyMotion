@@ -31,10 +31,15 @@ const App = () => {
 
   const [selectedTime, setSelectedTime] = useState(0)
 
+  const handleTimeSelect = (time: number) => {
+    setCountdownSeconds(time)
+    setSelectedTime(time)
+  }
+
   return (
     <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 mt-20">  
 
-      <TimeSelecter onTimeSelect={setCountdownSeconds} timeLeft={timeLeft} state={state} />
+      <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} />
       <Toaster />
 
       <WordsContainer>

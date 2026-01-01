@@ -23,12 +23,12 @@ export default function TimeSelector({
 
   if (state === 'run') {
     return (
-      <div className="flex gap-2 justify-start items-center mt-10 text-2xl font-bold text-green-600">
+      <div className="flex gap-2 justify-start items-center mt-10 text-lg text-green-600">
         Time Left: {timeLeft}s
       </div>  
     )
   }
-  
+
   return (
     <div className="flex gap-2 justify-start items-center mt-10">
       <div
