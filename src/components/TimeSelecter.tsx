@@ -6,8 +6,12 @@ const TIME_OPTIONS = [30, 60, 90]
 
 export default function TimeSelector({
   onTimeSelect,
+  timeLeft,
+  state,
 }: {
   onTimeSelect: (time: number) => void
+  timeLeft: number
+  state: string
 }) {
   const [selectedTime, setSelectedTime] = useState<number | null>(null)
   const [play] = useSound("/bubble.wav", { volume: 0.5 })
@@ -15,8 +19,16 @@ export default function TimeSelector({
   const handleTimeSelect = (time: number) => {
     setSelectedTime(time)
     onTimeSelect(time)
-  }
+  } 
 
+  if (state === 'run') {
+    return (
+      <div className="flex gap-2 justify-start items-center mt-10 text-2xl font-bold text-green-600">
+        Time Left: {timeLeft}s
+      </div>  
+    )
+  }
+  
   return (
     <div className="flex gap-2 justify-start items-center mt-10">
       <div

@@ -11,7 +11,7 @@ import Results from "./components/Results"
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative text-3xl max-w-xl leading-relaxed break-all mt-3 align-justify">
+    <div className="relative text-3xl max-w-full leading-relaxed break-all mt-3 align-justify [word-spacing:0.2em] ">
       {children}
     </div>
   )
@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 mt-20">  
 
-      <TimeSelecter onTimeSelect={setCountdownSeconds} />
+      <TimeSelecter onTimeSelect={setCountdownSeconds} timeLeft={timeLeft} state={state} />
       <Toaster />
 
       <WordsContainer>
