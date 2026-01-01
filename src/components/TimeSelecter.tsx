@@ -21,7 +21,7 @@ export default function TimeSelector({
     onTimeSelect(time)
   } 
 
-  if (state === 'run') {
+  if (state === 'run' || state === 'finish') {
     return (
       <div className="flex gap-2 justify-start items-center mt-10 text-lg text-green-600">
         Time Left: {timeLeft}s
