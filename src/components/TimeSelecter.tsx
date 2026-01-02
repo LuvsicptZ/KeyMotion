@@ -53,8 +53,8 @@ export default function TimeSelector({
             onClick={() => handleTimeSelect(time)}
             className={`${
               selectedTime === time 
-                ? "bg-gray-300 underline dark:bg-slate-700" 
-                : ""
+                ? "bg-slate-200 dark:bg-slate-700 underline" 
+                : "bg-transparent"
             } hover:underline hover:cursor-pointer dark:text-primary-400 text-green-600 p-2 rounded-md transition-colors`}
           >
             {time}s
