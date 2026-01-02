@@ -6,6 +6,10 @@
   <img src="public/demo.png" alt="KeyMotion Screenshot" width="800">
 </p>
 
+## Live Demo
+
+The game is deployed on Vercel. Try it out here: [https://key-motion.vercel.app/](https://key-motion.vercel.app/)
+
 
 ## Features
 
