@@ -29,7 +29,7 @@ const isKeyboardCodeAllowed = (code: string) => {
             return
         }
         if (countdownSeconds <= 0) {
-            toast('Please choose a time first :)', {
+            toast('Please choose a time first 🙂', {
                 ariaProps: {
                     role: 'status',
                     'aria-live': 'polite',
