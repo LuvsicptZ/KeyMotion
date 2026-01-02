@@ -7,6 +7,7 @@ import { useState } from "react"
 import UserTypings from "./components/UserTypings";
 import { calculateAccuracyPercentage } from "./utils/helpers"
 import Results from "./components/Results"
+import ThemeToggle from "./components/ThemeToggle"
 
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
@@ -38,7 +39,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 mt-20">  
-
+      <ThemeToggle />
       <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} />
       <Toaster />
 
