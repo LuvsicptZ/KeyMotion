@@ -1,12 +1,15 @@
 import useTheme from "../hooks/useTheme"
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useSound} from "use-sound";
 
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme()
+    const [play] = useSound("/toggle.wav", { volume: 0.5 })
 
     const handleToggle = () => {
         setTheme(theme === "dark" ? "light" : "dark")
+        play()
     }
 
     return (
@@ -15,11 +18,7 @@ const ThemeToggle = () => {
             className="
                 fixed top-6 right-6 z-50
                 p-3 rounded-full
-                bg-white/10 backdrop-blur-md
-                border border-white/20
-                shadow-lg
                 text-slate-700 dark:text-slate-200
-                hover:bg-white/20 dark:hover:bg-white/10
                 hover:scale-110
                 transition-all duration-300
             "
