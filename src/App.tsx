@@ -38,33 +38,41 @@ const App = () => {
   }
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 mt-20">  
+    <div className="min-h-screen w-full relative">
+      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
+        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
+      </h1>
+
       <ThemeToggle />
-      <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} />
-      <Toaster />
 
-      <WordsContainer>
-        <GenerateWords words={words} />
-        <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
-      </WordsContainer>
+      <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">  
 
-      <RestartButton
-        className="mx-auto mt-10 text-slate-500"
-        onRestart={() => {
-          restart()
-          setSelectedTime(0)
-        }}
-      />
+        <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} />
+        <Toaster />
 
-      <Results
-        state={state}
-        className="mt-10"
-        errors={errors}
-        totalTime={selectedTime}
-        accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
-        total={totalTyped.current}
-      />
+        <WordsContainer>
+          <GenerateWords words={words} />
+          <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
+        </WordsContainer>
 
+        <RestartButton
+          className="mx-auto mt-10 text-slate-500"
+          onRestart={() => {
+            restart()
+            setSelectedTime(0)
+          }}
+        />
+
+        <Results
+          state={state}
+          className="mt-10"
+          errors={errors}
+          totalTime={selectedTime}
+          accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
+          total={totalTyped.current}
+        />
+
+      </div>
     </div>
   );
 };
