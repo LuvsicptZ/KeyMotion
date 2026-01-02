@@ -24,6 +24,7 @@ const useEngine = () => {
         resetTotalTyped()
         resetCountdown()
         setState('start')
+        setCountdownSeconds(0)
         updateWords()
         clearTyped()
         setErrors(0)

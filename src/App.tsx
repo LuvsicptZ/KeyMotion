@@ -49,7 +49,10 @@ const App = () => {
 
       <RestartButton
         className="mx-auto mt-10 text-slate-500"
-        onRestart={() => restart()}
+        onRestart={() => {
+          restart()
+          setSelectedTime(0)
+        }}
       />
 
       <Results
