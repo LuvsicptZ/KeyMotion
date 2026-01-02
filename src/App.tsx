@@ -47,7 +47,7 @@ const App = () => {
 
       <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">  
 
-        <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} />
+        <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} selectedTime={selectedTime} />
         <Toaster />
 
         <WordsContainer>

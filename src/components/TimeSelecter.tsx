@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import { IoIosHelpCircleOutline } from "react-icons/io"
 import { useSound } from "use-sound"
 
@@ -8,20 +7,16 @@ export default function TimeSelector({
   onTimeSelect,
   timeLeft,
   state,
+  selectedTime,
 }: {
   onTimeSelect: (time: number) => void
   timeLeft: number
   state: string
+  selectedTime: number
 }) {
-  const [selectedTime, setSelectedTime] = useState<number | null>(null)
   const [play] = useSound("/bubble.wav", { volume: 0.5 })
 
-  useEffect(() => {
-    if (state === "start") setSelectedTime(null)
-  }, [state])
-
   const handleTimeSelect = (time: number) => {
-    setSelectedTime(time)
     onTimeSelect(time)
   } 
 

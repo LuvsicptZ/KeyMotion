@@ -9,7 +9,7 @@ const Caret = () => {
           animate={{ opacity: 0 }}
           exit={{ opacity: 1 }}
           transition={{ 
-            opacity: { duration: 0.7, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: 1.0, repeat: Infinity, ease: "easeInOut" },
             layout: { type: "spring", stiffness: 800, damping: 35 } 
           }}
           aria-hidden="true"
