@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { calculateWPM } from "../utils/helpers"
 import { IoIosHelpCircleOutline } from "react-icons/io"
+import { formatPercentage } from "../utils/helpers"
 
 const Results = ({
     errors,
@@ -57,7 +58,7 @@ const Results = ({
             </motion.li>
 
             <motion.li initial={initial} animate={animate} transition={{ duration: 0.3, delay: 0.6 }} className="">
-                Accuracy: {accuracyPercentage.toFixed(2)}%
+                Accuracy: {formatPercentage(accuracyPercentage)}
             </motion.li>
 
             <motion.li initial={initial} animate={animate} transition={{ duration: 0.3, delay: 1.0 }} className="">
