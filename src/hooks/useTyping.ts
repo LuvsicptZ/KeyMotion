@@ -62,7 +62,6 @@ const isKeyboardCodeAllowed = (code: string) => {
     const clearTyped = useCallback(() => {
         setTyped("")
         setCursor(0)
-        totalTyped.current = 0
     }, []);
 
     const resetTotalTyped = useCallback(() => {
