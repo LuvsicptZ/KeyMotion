@@ -3,7 +3,7 @@
 **KeyMotion** is a lightweight and interactive typing speed test application designed to help users improve their typing efficiency with a smooth, modern user experience.
 
 <p align="center">
-  <img src="public/demo.png" alt="KeyMotion Screenshot" width="800">
+  <img src="frontend/public/demo.png" alt="KeyMotion Screenshot" width="800">
 </p>
 
 ## Live Demo
@@ -30,11 +30,18 @@ The game is deployed on Vercel. Try it out here: [https://key-motion.vercel.app/
 
 ## Tech Stack
 
+### Frontend
 *   **React** - UI Library
 *   **TypeScript** - Type Safety
 *   **Tailwind CSS** - Styling
 *   **Framer Motion** - Animations
 *   **Vite** - Build Tool
+
+### Backend
+*   **NestJS** - Server Framework
+*   **Prisma** - ORM
+*   **PostgreSQL** - Database
+*   **JWT** - Authentication
 
 ## Getting Started
 
@@ -46,14 +53,18 @@ To run KeyMotion locally on your machine:
     cd KeyMotion
     ```
 
-2.  **Install dependencies:**
+2.  **Start the frontend:**
     ```bash
+    cd frontend
     npm install
+    npm run dev
     ```
 
-3.  **Start the development server:**
+3.  **Start the backend:**
     ```bash
-    npm run dev
+    cd backend
+    npm install
+    npm run start:dev
     ```
 
 4.  **Open in browser:**
