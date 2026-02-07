@@ -19,7 +19,7 @@ export class ResultsController {
         @Query('page') page = '1',
         @Query('pageSize') pageSize = '10',
     ) {
-        return this.results.findMine(
+        return this.results.findByUser(
             req.user.userId,
             parseInt(page, 10),
             parseInt(pageSize, 10),
