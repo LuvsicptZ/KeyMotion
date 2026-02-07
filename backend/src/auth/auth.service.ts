@@ -1,10 +1,9 @@
-import { Injectable, ConflictException } from "@nestjs/common";
+import { Injectable, ConflictException, UnauthorizedException } from "@nestjs/common";
 import { RegisterDto } from "./dto/register.dto";
 import * as bcrypt from 'bcrypt';
 import { UsersService } from "../user/users.service";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
-import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -55,5 +54,9 @@ export class AuthService {
         });
 
         return { accessToken }
+    }
+
+    getMe(userId: string) {
+        return this.users.findById(userId);
     }
 }
