@@ -39,4 +39,5 @@ model Result {
 
   user        User     @relation(fields: [userId], references: [id])
   @@index([userId, createdAt])
+  @@index([mode, userId, wpm])
 }
