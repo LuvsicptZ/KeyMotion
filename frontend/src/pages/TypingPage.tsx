@@ -1,0 +1,82 @@
+import RestartButton from "../components/RestartButton";
+import { Toaster } from "react-hot-toast";
+import useEngine from "../hooks/useEngine";
+import TimeSelecter from "../components/TimeSelecter";
+import GenerateWords from "../components/GenerateWords";
+import { useState } from "react";
+import UserTypings from "../components/UserTypings";
+import { calculateAccuracyPercentage } from "../utils/helpers";
+import Results from "../components/Results";
+import ThemeToggle from "../components/ThemeToggle";
+
+const WordsContainer = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="relative text-3xl max-w-full leading-relaxed break-all mt-3 align-justify [word-spacing:0.2em] ">
+      {children}
+    </div>
+  );
+};
+
+const TypingPage = () => {
+  const {
+    state,
+    words,
+    timeLeft,
+    typed,
+    errors,
+    restart,
+    totalTyped,
+    setCountdownSeconds,
+  } = useEngine();
+
+  const [selectedTime, setSelectedTime] = useState(0);
+
+  const handleTimeSelect = (time: number) => {
+    setCountdownSeconds(time);
+    setSelectedTime(time);
+  };
+
+  return (
+    <div className="min-h-screen w-full relative">
+      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
+        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
+      </h1>
+
+      <ThemeToggle />
+
+      <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">
+        <TimeSelecter
+          onTimeSelect={handleTimeSelect}
+          timeLeft={timeLeft}
+          state={state}
+          selectedTime={selectedTime}
+        />
+        <Toaster />
+
+        <WordsContainer>
+          <GenerateWords words={words} />
+          <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
+        </WordsContainer>
+
+        <RestartButton
+          className="mx-auto mt-10 text-slate-500"
+          onRestart={() => {
+            restart();
+            setSelectedTime(0);
+          }}
+        />
+
+        <Results
+          state={state}
+          className="mt-10"
+          errors={errors}
+          totalTime={selectedTime}
+          accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
+          total={totalTyped.current}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default TypingPage;
