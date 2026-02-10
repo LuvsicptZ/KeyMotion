@@ -1,11 +1,10 @@
-import { input } from "framer-motion/client";
 import { request } from "./client";
 import { setToken } from "./token";
 
 export type User = {
     id: string;
     username: string;
-    email?: string;;
+    email?: string;
     createdAt: string;
 };
 
