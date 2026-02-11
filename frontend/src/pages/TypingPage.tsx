@@ -1,13 +1,15 @@
 import RestartButton from "../components/RestartButton";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import useEngine from "../hooks/useEngine";
 import TimeSelecter from "../components/TimeSelecter";
 import GenerateWords from "../components/GenerateWords";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserTypings from "../components/UserTypings";
-import { calculateAccuracyPercentage } from "../utils/helpers";
+import { calculateAccuracyPercentage, calculateWPM } from "../utils/helpers";
 import Results from "../components/Results";
 import ThemeToggle from "../components/ThemeToggle";
+import { createResult } from "../api/results";
+import { Link } from "react-router-dom";
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -30,11 +32,43 @@ const TypingPage = () => {
   } = useEngine();
 
   const [selectedTime, setSelectedTime] = useState(0);
+  const hasReportedRef = useRef(false);
+
+  const total = totalTyped.current;
+  const accuracyPercentage = calculateAccuracyPercentage(errors, total);
 
   const handleTimeSelect = (time: number) => {
     setCountdownSeconds(time);
     setSelectedTime(time);
   };
+
+  useEffect(() => {
+    if (state !== "finish") {
+      hasReportedRef.current = false;
+      return;
+    }
+
+    if (hasReportedRef.current || selectedTime <= 0) {
+      return;
+    }
+
+    hasReportedRef.current = true;
+    const correctCount = Math.max(total - errors, 0);
+    const wpm = calculateWPM(correctCount, selectedTime);
+
+    void createResult({
+      wpm,
+      accuracy: accuracyPercentage / 100,
+      correctCount,
+      totalCount: total,
+      durationSec: selectedTime,
+      mode: "time",
+    }).catch((error: unknown) => {
+      hasReportedRef.current = false;
+      const message = error instanceof Error ? error.message : "Result upload failed";
+      toast.error(message);
+    });
+  }, [state, selectedTime, total, errors, accuracyPercentage]);
 
   return (
     <div className="min-h-screen w-full relative">
@@ -43,6 +77,12 @@ const TypingPage = () => {
       </h1>
 
       <ThemeToggle />
+      <Link
+        to="/leaderboard"
+        className="fixed top-7 right-20 z-50 border border-slate-300 dark:border-slate-600 px-3 py-1.5 text-sm text-slate-700 dark:text-slate-200 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+      >
+        Leaderboard
+      </Link>
 
       <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">
         <TimeSelecter
@@ -71,8 +111,8 @@ const TypingPage = () => {
           className="mt-10"
           errors={errors}
           totalTime={selectedTime}
-          accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
-          total={totalTyped.current}
+          accuracyPercentage={accuracyPercentage}
+          total={total}
         />
       </div>
     </div>

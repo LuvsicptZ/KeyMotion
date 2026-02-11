@@ -4,10 +4,9 @@ import { getMe, login as apiLogin , register as apiRegister} from "../api/auth";
 import { clearToken, getToken } from "../api/token";
 import { setUnauthorizedHandler } from "../api/client";
 
-type AuthResult = {
-    ok: boolean;
-    message?: string;
-};
+type AuthResult =
+    | { ok: true }
+    | { ok: false; message: string; code?: string };
 
 type AuthContextValue = {
     user: User | null;
@@ -47,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return e instanceof Error ? e.message : fallback;
     };
 
-    const register = async (input: RegisterInput) => {
+    const register = async (input: RegisterInput): Promise<AuthResult> => {
         setError(null);
         setLoading(true);
         try {
@@ -65,7 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const login = async (input: LoginInput) => {
+    const login = async (input: LoginInput): Promise<AuthResult> => {
         setError(null);
         setLoading(true);
         try {
