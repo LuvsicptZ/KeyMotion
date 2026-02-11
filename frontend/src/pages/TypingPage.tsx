@@ -9,8 +9,9 @@ import { calculateAccuracyPercentage, calculateWPM } from "../utils/helpers";
 import Results from "../components/Results";
 import ThemeToggle from "../components/ThemeToggle";
 import { createResult } from "../api/results";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PixelLogo from "../components/PixelLogo";
+import { useAuth } from "../auth/AuthContext";
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -21,6 +22,8 @@ const WordsContainer = ({ children }: { children: React.ReactNode }) => {
 };
 
 const TypingPage = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const {
     state,
     words,
@@ -41,6 +44,11 @@ const TypingPage = () => {
   const handleTimeSelect = (time: number) => {
     setCountdownSeconds(time);
     setSelectedTime(time);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
   };
 
   useEffect(() => {
@@ -76,12 +84,18 @@ const TypingPage = () => {
       <PixelLogo />
 
       <ThemeToggle />
-      <Link
-        to="/leaderboard"
-        className="fixed top-7 right-20 z-50 pixel-button text-sm font-bold"
-      >
-        Leaderboard
-      </Link>
+      <div className="fixed top-7 right-20 z-50 flex items-center gap-3">
+        <Link to="/leaderboard" className="pixel-button text-sm font-bold">
+          Leaderboard
+        </Link>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="pixel-button text-sm font-bold"
+        >
+          Log out
+        </button>
+      </div>
 
       <div className="flex flex-col gap-12 w-full max-w-4xl mx-auto px-4 pt-32 pb-20">
         <div className="text-center">

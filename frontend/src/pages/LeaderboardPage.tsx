@@ -1,16 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
 import { getLeaderboard, getMyRank, type LeaderboardItem, type MyRankResponse } from "../api/leaderboard";
 import { useAuth } from "../auth/AuthContext";
 import PixelLogo from "../components/PixelLogo";
 
 const LeaderboardPage = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [items, setItems] = useState<LeaderboardItem[]>([]);
   const [myRank, setMyRank] = useState<MyRankResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -60,12 +66,18 @@ const LeaderboardPage = () => {
 
       <ThemeToggle />
 
-      <Link
-        to="/typing"
-        className="fixed top-7 right-20 z-50 pixel-button text-sm font-bold"
-      >
-        Back to Practice
-      </Link>
+      <div className="fixed top-7 right-20 z-50 flex items-center gap-3">
+        <Link to="/typing" className="pixel-button text-sm font-bold">
+          Back to Practice
+        </Link>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="pixel-button text-sm font-bold"
+        >
+          Log out
+        </button>
+      </div>
 
       <div className="w-full max-w-5xl mx-auto px-4 pt-24 pb-20">
         <div className="text-center mb-12">

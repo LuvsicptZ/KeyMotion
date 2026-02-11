@@ -9,7 +9,7 @@ const Character = ({ actual, expected }: { actual: string; expected: string }) =
 
     const getClassName = () => {
         if (!isCorrect && !isWhiteSpace) return "text-red-500"
-        if (isCorrect && !isWhiteSpace) return "text-green-500"
+        if (isCorrect && !isWhiteSpace) return "text-green-500 dark:text-yellow-300"
         if (!isCorrect && isWhiteSpace) return "bg-red-500/60"
         return ""
     }
