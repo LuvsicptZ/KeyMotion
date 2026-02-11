@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import TypingPage from "./pages/TypingPage";
 import RegisterPage from "./pages/RegisterPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
 import { useAuth } from "./auth/AuthContext";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/typing" element={<TypingPage />} />
+      <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
