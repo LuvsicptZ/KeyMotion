@@ -14,11 +14,9 @@ const RegisterPage = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await register({ username, email, password });
+    const result = await register({ username, email, password });
+    if (result.ok) {
       navigate("/typing", { replace: true });
-    } catch {
-      // AuthContext already sets `error`; keep page logic simple.
     }
   };
 
@@ -45,6 +43,7 @@ const RegisterPage = () => {
           <input
             className="mt-1 w-full border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 py-2 outline-none focus:border-yellow-400 focus:ring-0"
             type="text"
+            autoComplete="username"
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -58,6 +57,7 @@ const RegisterPage = () => {
           <input
             className="mt-1 w-full border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 py-2 outline-none focus:border-yellow-400 focus:ring-0"
             type="email"
+            autoComplete="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -72,6 +72,7 @@ const RegisterPage = () => {
             <input
               className="w-full border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 pr-16 py-2 outline-none focus:border-yellow-400 focus:ring-0"
               type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
               required
               minLength={8}
               maxLength={24}

@@ -13,11 +13,9 @@ const LoginPage = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await login({ email, password });
+    const result = await login({ email, password });
+    if (result.ok) {
       navigate("/typing", { replace: true });
-    } catch {
-      // AuthContext already sets `error`; keep page logic simple.
     }
   };
 
@@ -44,6 +42,7 @@ const LoginPage = () => {
           <input
             className="mt-1 w-full border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 py-2 outline-none focus:border-yellow-400 focus:ring-0"
             type="email"
+            autoComplete="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +57,7 @@ const LoginPage = () => {
             <input
               className="w-full border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 pr-16 py-2 outline-none focus:border-yellow-400 focus:ring-0"
               type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
               required
               minLength={8}
               maxLength={24}

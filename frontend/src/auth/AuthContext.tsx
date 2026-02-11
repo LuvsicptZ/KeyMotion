@@ -4,12 +4,17 @@ import { getMe, login as apiLogin , register as apiRegister} from "../api/auth";
 import { clearToken, getToken } from "../api/token";
 import { setUnauthorizedHandler } from "../api/client";
 
+type AuthResult = {
+    ok: boolean;
+    message?: string;
+};
+
 type AuthContextValue = {
     user: User | null;
     loading: boolean;
     error: string | null;
-    login: (input: LoginInput) => Promise<void>;
-    register: (input: RegisterInput) => Promise<void>;
+    login: (input: LoginInput) => Promise<AuthResult>;
+    register: (input: RegisterInput) => Promise<AuthResult>;
     logout: () => void;
 };
 
@@ -38,15 +43,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             .finally(() => setLoading(false));
     }, []);
 
+    const getErrorMessage = (e: unknown, fallback: string) => {
+        return e instanceof Error ? e.message : fallback;
+    };
+
     const register = async (input: RegisterInput) => {
         setError(null);
         setLoading(true);
         try {
             await apiRegister(input);
-            await login({ email: input.email, password: input.password });
+            await apiLogin({ email: input.email, password: input.password });
+            const me = await getMe();
+            setUser(me);
+            return { ok: true };
         } catch (e) {
-            setError(e instanceof Error ? e.message : "Register failed");
-            throw e;
+            const message = getErrorMessage(e, "Register failed");
+            setError(message);
+            return { ok: false, message };
         } finally {
             setLoading(false);
         }
@@ -59,9 +72,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             await apiLogin(input);
             const me = await getMe();
             setUser(me);
+            return { ok: true };
         } catch (e) {
-            setError(e instanceof Error ? e.message : "Login failed");
-            throw e;
+            const message = getErrorMessage(e, "Login failed");
+            setError(message);
+            return { ok: false, message };
         } finally {
             setLoading(false);
         }
