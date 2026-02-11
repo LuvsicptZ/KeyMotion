@@ -14,47 +14,49 @@ export default function TimeSelector({
   state: string
   selectedTime: number
 }) {
+  // #region agent log
+  fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'A',location:'TimeSelecter.tsx:18',message:'TimeSelector render',data:{state,selectedTime},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
   const [play] = useSound("/bubble.wav", { volume: 0.5 })
 
   const handleTimeSelect = (time: number) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'B',location:'TimeSelecter.tsx:23',message:'Internal handleTimeSelect',data:{time},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+    play()
     onTimeSelect(time)
   } 
 
   if (state === 'run' || state === 'finish') {
     return (
-      <div className="flex gap-2 justify-start items-center mt-10 text-lg text-green-600">
-        Time Left: {timeLeft}s
+      <div className="inline-flex items-center px-6 py-3 border-4 border-slate-800 dark:border-slate-100 bg-white dark:bg-slate-800 font-black text-2xl">
+        <span className="text-slate-500 mr-2 uppercase text-sm">Time Left:</span>
+        <span className={`${timeLeft <= 5 ? 'text-red-500 animate-pulse' : 'text-yellow-500'}`}>
+          {timeLeft}s
+        </span>
       </div>  
     )
   }
 
   return (
-    <div className="flex gap-2 justify-start items-center mt-10">
-      <div
-        onMouseEnter={() => play()}
-        className="flex gap-1 cursor-default has-tooltip items-center text-md dark:text-primary-400 text-green-600 font-medium text-start"
-      >
-        <IoIosHelpCircleOutline className="hover:scale-105 hover:cursor-pointer" />
-        <div>Choose time:</div>
-        <span className="-mt-[7rem] text-sm w-fit max-w-[22rem] tooltip rounded py-2 bg-transparent dark:text-slate-300 text-slate-600 transition">
-          Choose the countdown time and type to start testing your typing speed!
-        </span>
-      </div>
-      
-      <div className="flex items-center">
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex gap-4 items-center">
         {TIME_OPTIONS.map((time) => (
           <button
             key={time}
             onClick={() => handleTimeSelect(time)}
-            className={`${
+            className={`pixel-button min-w-[80px] font-bold ${
               selectedTime === time 
-                ? "bg-slate-200 dark:bg-slate-700 underline" 
-                : "bg-transparent"
-            } hover:underline hover:cursor-pointer dark:text-primary-400 text-green-600 p-2 rounded-md transition-colors`}
+                ? "bg-yellow-400! dark:bg-yellow-600! text-slate-900!" 
+                : ""
+            }`}
           >
             {time}s
           </button>
         ))}
+      </div>
+      <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">
+        Select Duration
       </div>
     </div>
   )

@@ -24,52 +24,45 @@ const Results = ({
 
 
     return (
-        <motion.ul
+        <motion.div
             initial={initial}
             animate={animate}
-            className={`flex flex-col items-center text-green-500 space-y-2 ${className}`}
+            className={`w-full max-w-md mx-auto ${className}`}
         >
-            <motion.li initial={initial} animate={animate} transition={{ duration: 0.3 }} className="text-xl">
-                <span className="text-2xl font-bold">Results</span>
-            </motion.li>
+            <div className="pixel-card bg-white dark:bg-slate-800 flex flex-col gap-6 py-8">
+                <div className="text-center border-b-4 border-slate-800 dark:border-slate-100 pb-4 mx-4">
+                    <h3 className="text-3xl font-black uppercase tracking-tighter">Session Results</h3>
+                </div>
 
-            <motion.li
-                initial={initial}
-                animate={animate}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                className="flex items-center gap-1"
-            >
-                Speed: {calculateWPM(total - errors, totalTime)} wpm
+                <div className="grid grid-cols-2 gap-6 px-8">
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase text-slate-400">Speed</span>
+                        <span className="text-3xl font-black text-blue-500">{calculateWPM(total - errors, totalTime)} <small className="text-xs uppercase">WPM</small></span>
+                    </div>
+                    
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase text-slate-400">Accuracy</span>
+                        <span className="text-3xl font-black text-green-500">{formatPercentage(accuracyPercentage)}</span>
+                    </div>
 
-                <span className="relative has-tooltip inline-flex items-center">
-                    <IoIosHelpCircleOutline className="hover:scale-105 cursor-help text-slate-700" />
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase text-slate-400">Total Typed</span>
+                        <span className="text-xl font-bold">{total}</span>
+                    </div>
 
-                    <span
-                        className="
-                            tooltip
-                            left-full top-1/2 ml-2 -translate-y-1/2
-                            max-w-[calc(100vw-2rem)] whitespace-normal wrap-break-word sm:w-max sm:whitespace-nowrap
-                            z-50 rounded bg-slate-200 px-3 py-2 text-xs leading-snug text-slate-700 shadow
-                        "
-                    >
-                        WPM = (Correct characters / 5) / Time (minutes)
-                    </span>
-                </span>
-            </motion.li>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase text-slate-400">Errors</span>
+                        <span className="text-xl font-bold text-red-500">{errors}</span>
+                    </div>
+                </div>
 
-            <motion.li initial={initial} animate={animate} transition={{ duration: 0.3, delay: 0.6 }} className="">
-                Accuracy: {formatPercentage(accuracyPercentage)}
-            </motion.li>
-
-            <motion.li initial={initial} animate={animate} transition={{ duration: 0.3, delay: 1.0 }} className="">
-                Typed: {total}
-            </motion.li>
-
-            <motion.li initial={initial} animate={animate} transition={{ duration: 0.3, delay: 1.4 }} className="text-red-500">
-                Errors: {errors}
-            </motion.li>
-
-        </motion.ul>
+                <div className="px-8 pt-4">
+                    <div className="text-[10px] text-center text-slate-400 italic">
+                        Result automatically saved to leaderboard
+                    </div>
+                </div>
+            </div>
+        </motion.div>
     )
 }
 

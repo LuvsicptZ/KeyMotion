@@ -38,6 +38,9 @@ const TypingPage = () => {
   const accuracyPercentage = calculateAccuracyPercentage(errors, total);
 
   const handleTimeSelect = (time: number) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'B',location:'TypingPage.tsx:41',message:'handleTimeSelect called',data:{time, state, timeLeft},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     setCountdownSeconds(time);
     setSelectedTime(time);
   };
@@ -71,7 +74,7 @@ const TypingPage = () => {
   }, [state, selectedTime, total, errors, accuracyPercentage]);
 
   return (
-    <div className="min-h-screen w-full relative">
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 font-mono">
       <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
         Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
       </h1>
@@ -79,41 +82,56 @@ const TypingPage = () => {
       <ThemeToggle />
       <Link
         to="/leaderboard"
-        className="fixed top-7 right-20 z-50 border border-slate-300 dark:border-slate-600 px-3 py-1.5 text-sm text-slate-700 dark:text-slate-200 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+        className="fixed top-7 right-20 z-50 pixel-button text-sm font-bold"
       >
         Leaderboard
       </Link>
 
-      <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">
-        <TimeSelecter
-          onTimeSelect={handleTimeSelect}
-          timeLeft={timeLeft}
-          state={state}
-          selectedTime={selectedTime}
-        />
+      <div className="flex flex-col gap-12 w-full max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <div className="text-center">
+          <TimeSelecter
+            onTimeSelect={handleTimeSelect}
+            timeLeft={timeLeft}
+            state={state}
+            selectedTime={selectedTime}
+          />
+        </div>
+        
         <Toaster />
 
-        <WordsContainer>
-          <GenerateWords words={words} />
-          <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
-        </WordsContainer>
+        <div className="relative">
+          {/* Decorative frame for the typing area */}
+          <div className="pixel-card bg-white dark:bg-slate-900 min-h-[200px] flex items-center justify-center p-8">
+            <WordsContainer>
+              <GenerateWords words={words} />
+              <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
+            </WordsContainer>
+          </div>
+          
+          {/* Keyboard prompt */}
+          {state === "start" && (
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-slate-400 text-sm animate-pulse">
+              Start typing to begin...
+            </div>
+          )}
+        </div>
 
-        <RestartButton
-          className="mx-auto mt-10 text-slate-500"
-          onRestart={() => {
-            restart();
-            setSelectedTime(0);
-          }}
-        />
+        <div className="flex flex-col items-center gap-8">
+          <RestartButton
+            onRestart={() => {
+              restart();
+              setSelectedTime(0);
+            }}
+          />
 
-        <Results
-          state={state}
-          className="mt-10"
-          errors={errors}
-          totalTime={selectedTime}
-          accuracyPercentage={accuracyPercentage}
-          total={total}
-        />
+          <Results
+            state={state}
+            errors={errors}
+            totalTime={selectedTime}
+            accuracyPercentage={accuracyPercentage}
+            total={total}
+          />
+        </div>
       </div>
     </div>
   );

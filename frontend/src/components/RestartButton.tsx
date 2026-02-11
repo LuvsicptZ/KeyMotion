@@ -18,9 +18,10 @@ function RestartButton({
         <button 
         ref={buttonRef} 
         onClick={handleClick} 
-        className={`block rounded px-8 py-2 dark:hover:bg-slate-700/50 hover:cursor-pointer hover:bg-slate-200/90 ${className}`}
+        title="Restart"
+        className={`pixel-button group ${className}`}
         >
-        <FaRotateRight className="w-6 h-6" />
+        <FaRotateRight className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
         </button>
     )
 }
