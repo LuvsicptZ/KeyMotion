@@ -10,6 +10,7 @@ import Results from "../components/Results";
 import ThemeToggle from "../components/ThemeToggle";
 import { createResult } from "../api/results";
 import { Link } from "react-router-dom";
+import PixelLogo from "../components/PixelLogo";
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -72,9 +73,7 @@ const TypingPage = () => {
 
   return (
     <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 font-mono">
-      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
-        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
-      </h1>
+      <PixelLogo />
 
       <ThemeToggle />
       <Link

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
 import { getLeaderboard, getMyRank, type LeaderboardItem, type MyRankResponse } from "../api/leaderboard";
 import { useAuth } from "../auth/AuthContext";
+import PixelLogo from "../components/PixelLogo";
 
 const LeaderboardPage = () => {
   const { user } = useAuth();
@@ -55,9 +56,7 @@ const LeaderboardPage = () => {
 
   return (
     <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 font-mono">
-      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
-        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
-      </h1>
+      <PixelLogo />
 
       <ThemeToggle />
 

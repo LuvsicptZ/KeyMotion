@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { useAuth } from "../auth/AuthContext";
 import ThemeToggle from "../components/ThemeToggle";
+import PixelLogo from "../components/PixelLogo";
 
 const LoginPage = () => {
   const { login, loading, error } = useAuth();
@@ -21,9 +22,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center px-4 relative overflow-hidden">
-      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-10">
-        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
-      </h1>
+      <PixelLogo className="z-10" />
       <ThemeToggle />
 
       <div className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-15 bg-[linear-gradient(to_right,#64748b22_1px,transparent_1px),linear-gradient(to_bottom,#64748b22_1px,transparent_1px)] bg-size-[12px_12px]" />
