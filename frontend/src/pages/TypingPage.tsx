@@ -38,9 +38,6 @@ const TypingPage = () => {
   const accuracyPercentage = calculateAccuracyPercentage(errors, total);
 
   const handleTimeSelect = (time: number) => {
-    // #region agent log
-    fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'B',location:'TypingPage.tsx:41',message:'handleTimeSelect called',data:{time, state, timeLeft},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
     setCountdownSeconds(time);
     setSelectedTime(time);
   };

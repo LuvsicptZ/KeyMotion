@@ -14,15 +14,9 @@ export default function TimeSelector({
   state: string
   selectedTime: number
 }) {
-  // #region agent log
-  fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'A',location:'TimeSelecter.tsx:18',message:'TimeSelector render',data:{state,selectedTime},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   const [play] = useSound("/bubble.wav", { volume: 0.5 })
 
   const handleTimeSelect = (time: number) => {
-    // #region agent log
-    fetch('http://127.0.0.1:7243/ingest/efa722b4-c957-48bc-97f4-94b84deb74f4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hypothesisId:'B',location:'TimeSelecter.tsx:23',message:'Internal handleTimeSelect',data:{time},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
     play()
     onTimeSelect(time)
   } 
