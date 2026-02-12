@@ -1,4 +1,3 @@
-import { IoIosHelpCircleOutline } from "react-icons/io"
 import { useSound } from "use-sound"
 
 const TIME_OPTIONS = [30, 60, 90]

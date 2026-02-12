@@ -1,6 +1,5 @@
 import { motion } from "framer-motion"
 import { calculateWPM } from "../utils/helpers"
-import { IoIosHelpCircleOutline } from "react-icons/io"
 import { formatPercentage } from "../utils/helpers"
 
 const Results = ({
