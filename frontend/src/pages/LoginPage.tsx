@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { useAuth } from "../auth/AuthContext";
 import ThemeToggle from "../components/ThemeToggle";
@@ -8,6 +8,9 @@ import PixelLogo from "../components/PixelLogo";
 const LoginPage = () => {
   const { login, loading, error } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? "/typing";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +19,7 @@ const LoginPage = () => {
     e.preventDefault();
     const result = await login({ email, password });
     if (result.ok) {
-      navigate("/typing", { replace: true });
+      navigate(from, { replace: true });
     }
   };
 

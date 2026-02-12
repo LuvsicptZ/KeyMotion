@@ -30,10 +30,7 @@ const ProfilePage = () => {
 
   // Load profile data (once)
   useEffect(() => {
-    if (!user) {
-      navigate("/login", { replace: true });
-      return;
-    }
+    if (!user) return;
 
     let cancelled = false;
 
@@ -59,7 +56,7 @@ const ProfilePage = () => {
     return () => {
       cancelled = true;
     };
-  }, [user, navigate]);
+  }, [user]);
 
   // Load results on page change
   useEffect(() => {

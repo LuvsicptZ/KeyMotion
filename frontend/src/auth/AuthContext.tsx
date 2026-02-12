@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import type { LoginInput, RegisterInput, User } from "../api/auth";
 import { getMe, login as apiLogin , register as apiRegister} from "../api/auth";
 import { clearToken, getToken } from "../api/token";
@@ -20,6 +21,7 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -28,6 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUnauthorizedHandler(() => {
             clearToken();
             setUser(null);
+            navigate("/login", { replace: true });
         });
 
         const token = getToken();
@@ -40,7 +43,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             .then(setUser)
             .catch(() => clearToken())
             .finally(() => setLoading(false));
-    }, []);
+
+        return () => setUnauthorizedHandler(null);
+    }, [navigate]);
 
     const getErrorMessage = (e: unknown, fallback: string) => {
         return e instanceof Error ? e.message : fallback;
