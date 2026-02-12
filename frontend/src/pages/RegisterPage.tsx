@@ -44,6 +44,8 @@ const RegisterPage = () => {
             type="text"
             autoComplete="username"
             required
+            minLength={3}
+            maxLength={20}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
