@@ -15,7 +15,7 @@ import { useAuth } from "../auth/AuthContext";
 
 const WordsContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative text-3xl max-w-full leading-relaxed break-all mt-3 align-justify [word-spacing:0.2em] ">
+    <div className="relative text-3xl max-w-full leading-relaxed break-all mt-3 align-justify [word-spacing:-0.1em] ">
       {children}
     </div>
   );
