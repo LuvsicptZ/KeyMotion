@@ -8,22 +8,24 @@
 
 ## Live Demo
 
-The game is deployed on Vercel. Try it out here: [https://key-motion.vercel.app/](https://key-motion.vercel.app/)
-
+- **Frontend**: [https://key-motion.vercel.app/](https://key-motion.vercel.app/) (Vercel)
+- **Backend API**: [https://keymotion-production.up.railway.app](https://keymotion-production.up.railway.app) (Railway)
 
 ## Features
 
-1.  **Flexible Test Duration**: Choose between **30s, 60s, or 90s** test modes. The game starts instantly upon your first keystroke.
-2.  **Real-time Visual Feedback**:
+1.  **User Account**: Register and login with JWT authentication. Track your progress and view your profile.
+2.  **Leaderboard**: Compete with others and see rankings by best WPM.
+3.  **Flexible Test Duration**: Choose between **30s, 60s, or 90s** test modes. The game starts instantly upon your first keystroke.
+4.  **Real-time Visual Feedback**:
     *   **Smooth Caret Motion**: Features a fluid, animated caret using `framer-motion` that glides as you type.
     *   **Accuracy Highlighting**: Correct characters are marked clearly, while errors are highlighted to provide immediate feedback.
-3.  **Dynamic Word Generation**: Never run out of practice material—new words are automatically generated as you complete each set.
-4.  **Comprehensive Results**: At the end of each session, view detailed statistics including:
+5.  **Dynamic Word Generation**: Never run out of practice material—new words are automatically generated as you complete each set.
+6.  **Comprehensive Results**: At the end of each session, view detailed statistics including:
     *   **WPM** (Words Per Minute)
     *   **Accuracy Percentage**
     *   **Total Errors**
     *   **Total Characters Typed**
-5.  **Interactive Elements**:
+7.  **Interactive Elements**:
     *   **Sound Effects**: Satisfying feedback sounds for keystrokes, errors, and UI interactions (with sound toggle).
     *   **Theme Support**: Toggle between Light and Dark modes to suit your preference.
     *   **Quick Restart**: Instantly reset the test at any time with the dedicated restart button.
@@ -64,6 +66,8 @@ To run KeyMotion locally on your machine:
     ```bash
     cd backend
     npm install
+    # Create .env with DATABASE_URL and JWT_SECRET (see backend/README.md)
+    npx prisma migrate dev   # Run database migrations
     npm run start:dev
     ```
 
