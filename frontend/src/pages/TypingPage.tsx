@@ -85,6 +85,9 @@ const TypingPage = () => {
 
       <ThemeToggle />
       <div className="fixed top-7 right-20 z-50 flex items-center gap-3">
+        <Link to="/profile" className="pixel-button text-sm font-bold">
+          Profile
+        </Link>
         <Link to="/leaderboard" className="pixel-button text-sm font-bold">
           Leaderboard
         </Link>

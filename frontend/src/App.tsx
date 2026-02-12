@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import TypingPage from "./pages/TypingPage";
 import RegisterPage from "./pages/RegisterPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import ProfilePage from "./pages/ProfilePage";
 import { useAuth } from "./auth/AuthContext";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/typing" element={<TypingPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
