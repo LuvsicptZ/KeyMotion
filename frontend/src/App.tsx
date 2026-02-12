@@ -1,79 +1,30 @@
-import RestartButton from "./components/RestartButton"
-import { Toaster } from "react-hot-toast";
-import useEngine from "./hooks/useEngine"
-import TimeSelecter from "./components/TimeSelecter"
-import GenerateWords from "./components/GenerateWords"
-import { useState } from "react"
-import UserTypings from "./components/UserTypings";
-import { calculateAccuracyPercentage } from "./utils/helpers"
-import Results from "./components/Results"
-import ThemeToggle from "./components/ThemeToggle"
-
-
-const WordsContainer = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="relative text-3xl max-w-full leading-relaxed break-all mt-3 align-justify [word-spacing:0.2em] ">
-      {children}
-    </div>
-  )
-}
+import { Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import TypingPage from "./pages/TypingPage";
+import RegisterPage from "./pages/RegisterPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import ProfilePage from "./pages/ProfilePage";
+import { useAuth } from "./auth/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { PublicRoute } from "./components/PublicRoute";
 
 const App = () => {
-  const { 
-    state, 
-    words, 
-    timeLeft, 
-    typed, 
-    errors, 
-    restart, 
-    totalTyped,
-    setCountdownSeconds 
-  } = useEngine()
+  const { loading } = useAuth();
 
-  const [selectedTime, setSelectedTime] = useState(0)
-
-  const handleTimeSelect = (time: number) => {
-    setCountdownSeconds(time)
-    setSelectedTime(time)
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
   return (
-    <div className="min-h-screen w-full relative">
-      <h1 className="fixed top-6 left-6 text-2xl font-bold text-yellow-500 tracking-tight z-50">
-        Key<span className="text-slate-500 dark:text-slate-400">Motion</span>
-      </h1>
-
-      <ThemeToggle />
-
-      <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto px-4 pt-24">  
-
-        <TimeSelecter onTimeSelect={handleTimeSelect} timeLeft={timeLeft} state={state} selectedTime={selectedTime} />
-        <Toaster />
-
-        <WordsContainer>
-          <GenerateWords words={words} />
-          <UserTypings className="absolute inset-0" userTypings={typed} words={words} />
-        </WordsContainer>
-
-        <RestartButton
-          className="mx-auto mt-10 text-slate-500"
-          onRestart={() => {
-            restart()
-            setSelectedTime(0)
-          }}
-        />
-
-        <Results
-          state={state}
-          className="mt-10"
-          errors={errors}
-          totalTime={selectedTime}
-          accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped.current)}
-          total={totalTyped.current}
-        />
-
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+      <Route path="/typing" element={<ProtectedRoute><TypingPage /></ProtectedRoute>} />
+      <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 

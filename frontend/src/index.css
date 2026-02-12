@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Departure+Mono&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Departure Mono", monospace;
   line-height: 1.5;
   font-weight: 400;
 
@@ -23,6 +24,49 @@
   :root.dark body {
     @apply bg-slate-900 text-slate-100;
   }
+}
+
+/* Pixel Art Styles */
+.pixel-border {
+  border: 4px solid currentColor;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dark .pixel-border {
+  box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.1);
+}
+
+.pixel-card {
+  @apply relative p-4 bg-white dark:bg-slate-800 border-4 border-slate-800 dark:border-slate-100;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.dark .pixel-card {
+  box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 0.2);
+}
+
+.pixel-card-gold {
+  @apply border-yellow-500 bg-yellow-50 dark:bg-yellow-900/30;
+  box-shadow: 8px 8px 0px 0px theme('colors.yellow.600');
+}
+
+.pixel-card-silver {
+  @apply border-slate-400 bg-slate-50 dark:bg-slate-700/30;
+  box-shadow: 8px 8px 0px 0px theme('colors.slate.500');
+}
+
+.pixel-card-bronze {
+  @apply border-orange-400 bg-orange-50 dark:bg-orange-900/30;
+  box-shadow: 8px 8px 0px 0px theme('colors.orange.500');
+}
+
+.pixel-button {
+  @apply px-4 py-2 border-4 border-slate-800 dark:border-slate-100 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 active:translate-x-1 active:translate-y-1 transition-all;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.dark .pixel-button {
+  box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.2);
 }
 
 .tooltip {

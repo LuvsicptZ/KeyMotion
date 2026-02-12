@@ -5,7 +5,14 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://key-motion.vercel.app',
+      'http://localhost:5173',
+      /^https:\/\/.*\.vercel\.app$/,
+    ],
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
