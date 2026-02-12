@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { loginSchema, type LoginFormData } from "../auth/schemas";
 import ThemeToggle from "../components/ThemeToggle";
+import BackgroundMusic from "../components/BackgroundMusic";
 import PixelLogo from "../components/PixelLogo";
 import { AuthFormField } from "../components/auth/AuthFormField";
 import { AuthPasswordField } from "../components/auth/AuthPasswordField";
@@ -30,6 +31,7 @@ const LoginPage = () => {
     <div className="min-h-screen w-full flex items-center justify-center px-4 relative overflow-hidden">
       <PixelLogo className="z-10" />
       <ThemeToggle />
+      <BackgroundMusic />
 
       <div className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-15 bg-[linear-gradient(to_right,#64748b22_1px,transparent_1px),linear-gradient(to_bottom,#64748b22_1px,transparent_1px)] bg-size-[12px_12px]" />
 
